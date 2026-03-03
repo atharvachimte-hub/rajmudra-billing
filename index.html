@@ -5,6 +5,17 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Rajmudra Computers - Premium Billing (Receipt)</title>
 
+<!-- ✅ LOGIN PROTECTION (जर login नसेल तर login.html ला पाठव) -->
+<script>
+(function(){
+  const ok = localStorage.getItem("rm_logged_in")==="true";
+  const user = localStorage.getItem("rm_user");
+  if(!ok || !user){
+    window.location.href = "login.html";
+  }
+})();
+</script>
+
 <style>
   :root{
     --bg:#f2f4f7; --ink:#111; --muted:#555; --line:#d7d7d7;
@@ -69,8 +80,14 @@
   <!-- LEFT -->
   <div class="panel">
     <div style="display:flex;justify-content:space-between;align-items:center;gap:10px;">
-      <h1>Premium Billing (Receipt)</h1>
-      <span class="pill">Logo • GST 9/9 • Save</span>
+      <div style="display:flex;align-items:center;gap:10px;flex-wrap:wrap">
+        <h1>Premium Billing (Receipt)</h1>
+        <span class="pill">Logo • GST 9/9 • Save</span>
+        <span class="pill" id="who"></span>
+      </div>
+
+      <!-- ✅ Logout -->
+      <button class="danger" type="button" onclick="logoutNow()">Logout</button>
     </div>
 
     <div class="grid">
@@ -92,13 +109,13 @@
         <input id="gstNo" placeholder="GST No" oninput="recalcAll()">
       </div>
 
-      <!-- ✅ NEW: Logo Upload (Recommended) -->
+      <!-- ✅ Logo Upload -->
       <div style="grid-column: span 12;">
         <div class="uploadRow">
           <div style="flex:1">
             <label>Upload Logo (Recommended) ✅ (print मध्ये 100% दिसेल)</label>
             <input id="logoUpload" type="file" accept="image/png,image/jpeg" />
-            <div class="hint">एकदा upload केलं की logo save होतो (this browser). पुढे परत करायची गरज नाही.</div>
+            <div class="hint">एकदा upload केलं की logo save होतो (this browser + this user). पुढे परत करायची गरज नाही.</div>
           </div>
           <div>
             <button class="light" type="button" onclick="clearSavedLogo()">Remove Logo</button>
@@ -221,17 +238,35 @@
       <div class="receipt" id="receipt"></div>
     </div>
 
-    <h2 style="margin-top:16px">Saved Bills (this laptop)</h2>
+    <h2 style="margin-top:16px">Saved Bills (this user)</h2>
     <div class="savedBox" id="savedList"></div>
-    <div class="hint">Save localStorage मध्ये होईल (same laptop+browser). Backup: Export CSV.</div>
+    <div class="hint">Save localStorage मध्ये होईल (same laptop+browser+user). Backup: Export CSV.</div>
   </div>
 </div>
 
 <script>
 /* ===========================
-   ✅ Logo Upload Base64 Fix
+   ✅ USER CONTEXT (Multi-user local)
    =========================== */
-const RM_LOGO_KEY = "rm_logo_b64";
+const RM_USER = localStorage.getItem("rm_user") || "unknown";
+document.getElementById("who").innerText = "User: " + RM_USER;
+
+function logoutNow(){
+  localStorage.removeItem("rm_logged_in");
+  localStorage.removeItem("rm_user");
+  window.location.href = "login.html";
+}
+
+/* ===========================
+   ✅ User-wise Keys (each client data separate)
+   =========================== */
+function K(key){ return `rm_${RM_USER}_${key}`; } // example: rm_admin_bills
+
+/* ===========================
+   ✅ Logo Upload Base64 Fix (user-wise)
+   =========================== */
+const RM_LOGO_KEY = K("logo_b64");
+
 function getSavedLogo(){
   try{ return localStorage.getItem(RM_LOGO_KEY) || ""; }catch(e){ return ""; }
 }
@@ -251,7 +286,7 @@ function clearSavedLogo(){
     if(!f) return;
     const reader = new FileReader();
     reader.onload = ()=>{
-      setSavedLogo(reader.result); // base64 data URL
+      setSavedLogo(reader.result);
       recalcAll();
       alert("Logo saved ✅ Now print will always show logo.");
     };
@@ -370,11 +405,8 @@ function recalcAll(){
 }
 
 function getLogoSrcForPreview(){
-  // ✅ Prefer saved base64 logo (best)
   const b64 = getSavedLogo();
   if(b64) return b64;
-
-  // fallback: filename in same folder
   const logoFile=(document.getElementById('logoFile').value.trim()||"logo.png");
   return logoFile;
 }
@@ -499,7 +531,7 @@ function renderReceipt(calc){
   `;
 }
 
-/* Save / Load / Export */
+/* Save / Load / Export (✅ user-wise) */
 function saveBill(){
   const items=getItems().filter(it => (it.desc||"").trim()!=="" || it.amount>0);
   if(items.length===0){ alert("Add at least one item."); return; }
@@ -516,18 +548,18 @@ function saveBill(){
   };
 
   let arr=[];
-  try{ arr=JSON.parse(getLS('bills')||"[]"); }catch(e){ arr=[]; }
+  try{ arr=JSON.parse(getLS(K('bills'))||"[]"); }catch(e){ arr=[]; }
   arr.unshift(bill);
-  setLS('bills', JSON.stringify(arr));
-  setLS('lastInvoice', Number(bill.invoiceNo||0));
+  setLS(K('bills'), JSON.stringify(arr));
+  setLS(K('lastInvoice'), Number(bill.invoiceNo||0));
   loadSavedList();
-  alert("Saved ✅ (this laptop/browser)");
+  alert("Saved ✅ (this user)");
 }
 
 function loadSavedList(){
   const box=document.getElementById('savedList');
   let arr=[];
-  try{ arr=JSON.parse(getLS('bills')||"[]"); }catch(e){ arr=[]; }
+  try{ arr=JSON.parse(getLS(K('bills'))||"[]"); }catch(e){ arr=[]; }
   if(arr.length===0){
     box.innerHTML = `<div style="font-size:12px;color:#555">No saved bills yet.</div>`;
     return;
@@ -548,7 +580,7 @@ function loadSavedList(){
 
 function loadBill(idx){
   let arr=[];
-  try{ arr=JSON.parse(getLS('bills')||"[]"); }catch(e){ arr=[]; }
+  try{ arr=JSON.parse(getLS(K('bills'))||"[]"); }catch(e){ arr=[]; }
   const b=arr[idx];
   if(!b) return;
 
@@ -567,26 +599,26 @@ function loadBill(idx){
 
 function deleteBill(idx){
   let arr=[];
-  try{ arr=JSON.parse(getLS('bills')||"[]"); }catch(e){ arr=[]; }
+  try{ arr=JSON.parse(getLS(K('bills'))||"[]"); }catch(e){ arr=[]; }
   if(!arr[idx]) return;
   if(!confirm("Delete this saved bill?")) return;
   arr.splice(idx,1);
-  setLS('bills', JSON.stringify(arr));
+  setLS(K('bills'), JSON.stringify(arr));
   loadSavedList();
 }
 
 function exportCSV(){
   let arr=[];
-  try{ arr=JSON.parse(getLS('bills')||"[]"); }catch(e){ arr=[]; }
+  try{ arr=JSON.parse(getLS(K('bills'))||"[]"); }catch(e){ arr=[]; }
   if(arr.length===0){ alert("No saved bills to export."); return; }
 
-  const head=["InvoiceNo","Date","BuyerName","BuyerAddr","PayMode","Item","HSN","Qty","Rate","Amount","Discount"];
+  const head=["InvoiceNo","Date","BuyerName","BuyerAddr","PayMode","Item","HSN","Qty","Rate","Amount","Discount","User"];
   let lines=[head.join(",")];
   arr.forEach(b=>{
     (b.items||[]).forEach(it=>{
       lines.push([
         csvSafe(b.invoiceNo), csvSafe(b.date), csvSafe(b.buyerName), csvSafe(b.buyerAddr), csvSafe(b.payMode),
-        csvSafe(it.desc), csvSafe(it.hsn), it.qty, it.rate, it.amount, b.discount
+        csvSafe(it.desc), csvSafe(it.hsn), it.qty, it.rate, it.amount, b.discount, csvSafe(RM_USER)
       ].join(","));
     });
   });
@@ -594,7 +626,7 @@ function exportCSV(){
   const blob=new Blob([lines.join("\n")],{type:"text/csv;charset=utf-8;"});
   const url=URL.createObjectURL(blob);
   const a=document.createElement("a");
-  a.href=url; a.download="rajmudra_bills_export.csv"; a.click();
+  a.href=url; a.download=`rajmudra_bills_${RM_USER}.csv`; a.click();
   URL.revokeObjectURL(url);
 }
 function csvSafe(v){
@@ -618,13 +650,13 @@ function clearAll(){
   itemId=0;
   addItem(); addItem(); addItem();
 
-  const lastInv=Number(getLS('lastInvoice')||0)+1;
+  const lastInv=Number(getLS(K('lastInvoice'))||0)+1;
   document.getElementById('invoiceNo').value=lastInv;
   document.getElementById('invDate').value=todayDDMMYYYY();
   recalcAll();
 }
 
-/* ✅ FINAL PRINT: A4 TAX INVOICE (bordered) + Logo base64 fix */
+/* ✅ PRINT (तुझंच existing) */
 function buildA4InvoiceHTML(calc){
   const shopName=document.getElementById('shopName').value.trim()||"RAJMUDRA COMPUTERS";
   const tagline=document.getElementById('tagline').value.trim()||"SALES & SERVICES";
@@ -648,7 +680,6 @@ function buildA4InvoiceHTML(calc){
   const logoFile=(document.getElementById('logoFile').value.trim()||"logo.png");
   let logoSrc = logoB64;
 
-  // fallback attempt if no base64
   if(!logoSrc){
     try{ logoSrc = new URL(logoFile, window.location.href).href; }
     catch(e){ logoSrc = logoFile; }
@@ -756,10 +787,8 @@ function buildA4InvoiceHTML(calc){
 }
 
 function printReceipt(){
-  // ✅ keep calculations updated
   recalcAll();
 
-  // rebuild calc quickly
   const items=getItems();
   const subTotal=items.reduce((s,x)=>s+(x.amount||0),0);
   const discount=Number(document.getElementById('discount').value||0);
@@ -833,14 +862,12 @@ function printReceipt(){
   w.document.write(`<html><head><title>Print Invoice</title>${css}</head><body>${html}</body></html>`);
   w.document.close();
   w.focus();
-
-  // give browser a tick to load images
   setTimeout(()=>{ w.print(); w.close(); }, 250);
 }
 
-/* Init */
+/* Init (✅ user-wise invoice no) */
 (function init(){
-  const lastInv=Number(getLS('lastInvoice')||0)+1;
+  const lastInv=Number(getLS(K('lastInvoice'))||0)+1;
   document.getElementById('invoiceNo').value=lastInv;
   document.getElementById('invDate').value=todayDDMMYYYY();
   addItem(); addItem(); addItem();
