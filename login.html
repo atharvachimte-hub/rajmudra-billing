@@ -10,7 +10,6 @@
     h2{margin:0 0 12px 0}
     input{width:100%;box-sizing:border-box;border:1px solid #d7d7d7;border-radius:10px;padding:11px 12px;font-size:14px;margin:8px 0}
     button{width:100%;border:0;border-radius:10px;padding:11px 12px;font-weight:800;cursor:pointer;background:#1f7a8c;color:#fff;margin-top:8px}
-    .hint{font-size:12px;color:#555;margin-top:10px;line-height:1.35}
     .err{color:#b00020;font-size:13px;min-height:18px;margin-top:6px}
     .pill{display:inline-block;padding:3px 8px;border-radius:999px;background:#eef6f8;color:#0b3c5d;font-size:11px;font-weight:900}
   </style>
@@ -29,20 +28,16 @@
     <input id="p" placeholder="Password" type="password" autocomplete="current-password" />
 
     <button onclick="doLogin()">Login</button>
-
-    <div class="hint">
-      Demo IDs (आत्ता टेस्टसाठी):<br>
-      ✅ <b>admin</b> / <b>1234</b><br>
-      ✅ <b>client1</b> / <b>1234</b><br><br>
-      Login नंतर page उघडेल: <b>index.html</b>
-    </div>
   </div>
 
 <script>
-  // ✅ इथे तू पुढे नवे client IDs add करू शकतोस (फक्त username:password टाकायचं)
+  // ✅ तयार Users (Client1/2/3) + Admin
+  // इथे पुढे नवीन client add करायचा असेल तर फक्त एक ओळ add करायची (username: "password")
   const USERS = {
-    admin: "1234",
-    client1: "1234",
+    admin:  "1234",
+    client1:"1234",
+    client2:"1234",
+    client3:"1234"
   };
 
   function doLogin(){
@@ -60,7 +55,7 @@
     window.location.href = "index.html";
   }
 
-  // जर आधीच login असेल तर थेट app ला पाठव
+  // ✅ आधीच login असेल तर थेट index.html ला पाठव
   (function(){
     if(localStorage.getItem("rm_logged_in")==="true" && localStorage.getItem("rm_user")){
       window.location.href = "index.html";
