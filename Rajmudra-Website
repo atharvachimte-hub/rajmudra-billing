@@ -1,0 +1,495 @@
+<!doctype html>
+<html lang="mr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rajmudra Computers | Sales & Services | Bibvewadi Pune</title>
+  <meta name="description" content="Rajmudra Computers - Laptop, Desktop, Printer, CCTV, Networking & Software Solutions. Bibvewadi, Pune. Call/WhatsApp for service." />
+
+  <style>
+    :root{
+      --bg:#0b1220;
+      --card:#0f1a33;
+      --text:#eaf0ff;
+      --muted:#b7c3e6;
+      --line:rgba(255,255,255,.12);
+      --blue:#1e4dff;
+      --red:#d41414;
+      --gold:#ffb23e;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--text);
+      background:
+        radial-gradient(1100px 500px at 10% 0%, rgba(30,77,255,.25), transparent 60%),
+        radial-gradient(900px 450px at 90% 10%, rgba(212,20,20,.22), transparent 60%),
+        linear-gradient(180deg,#071022 0%, #070b14 100%);
+    }
+    a{color:inherit;text-decoration:none}
+    .container{max-width:1150px;margin:0 auto;padding:0 16px}
+
+    /* Topbar */
+    .topbar{
+      position:sticky;top:0;z-index:50;
+      backdrop-filter: blur(10px);
+      background:rgba(7,11,20,.65);
+      border-bottom:1px solid var(--line);
+    }
+    .nav{display:flex;align-items:center;justify-content:space-between;gap:14px;padding:12px 0}
+    .brand{display:flex;align-items:center;gap:10px}
+    .logoDot{width:12px;height:12px;border-radius:999px;background:linear-gradient(135deg,var(--red),var(--blue))}
+    .brandTitle{font-weight:900;letter-spacing:.4px}
+    .brandSub{font-size:12px;color:var(--muted)}
+    .navLinks{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+    .navLinks a{font-size:13px;color:var(--muted)}
+    .navLinks a:hover{color:var(--text)}
+    .btnRow{display:flex;gap:10px;flex-wrap:wrap;justify-content:flex-end}
+
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;gap:8px;
+      padding:10px 12px;border-radius:12px;font-weight:900;
+      border:1px solid var(--line);background:rgba(255,255,255,.06);
+      cursor:pointer;
+      transition:.15s ease;
+    }
+    .btn:hover{transform:translateY(-1px)}
+    .btn.primary{background:linear-gradient(135deg,var(--blue),#0b2fff);border-color:rgba(30,77,255,.45)}
+    .btn.whatsapp{background:linear-gradient(135deg,#25D366,#128C7E);border-color:rgba(37,211,102,.35)}
+    .btn.billing{background:linear-gradient(135deg,var(--red),#ff2b2b);border-color:rgba(212,20,20,.45)}
+
+    /* Cards */
+    .card{
+      background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));
+      border:1px solid var(--line);
+      border-radius:18px;
+      box-shadow:0 18px 40px rgba(0,0,0,.35);
+      overflow:hidden;
+    }
+
+    /* Hero */
+    .hero{padding:34px 0 18px}
+    .heroGrid{display:grid;grid-template-columns:1.15fr .85fr;gap:16px;align-items:stretch}
+    .heroLeft{padding:18px}
+    .kicker{
+      display:inline-block;padding:6px 10px;border-radius:999px;
+      background:rgba(255,255,255,.08);border:1px solid var(--line);
+      color:var(--muted);font-size:12px;font-weight:900;
+    }
+    h1{margin:12px 0 8px 0;font-size:34px;line-height:1.15;letter-spacing:.2px}
+    .accent{color:var(--gold)}
+    .heroText{color:var(--muted);font-size:14px;line-height:1.6;margin-top:10px}
+    .heroBullets{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+    .pill{
+      padding:10px;border-radius:14px;border:1px solid var(--line);
+      background:rgba(0,0,0,.18);font-size:12px;color:var(--muted);font-weight:800;
+    }
+    .tagRow{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+    .tag{
+      font-size:11px;font-weight:900;color:#dbe6ff;background:rgba(30,77,255,.16);
+      border:1px solid rgba(30,77,255,.35);padding:6px 10px;border-radius:999px
+    }
+    .tag.red{background:rgba(212,20,20,.14);border-color:rgba(212,20,20,.32)}
+    .tag.gold{background:rgba(255,178,62,.14);border-color:rgba(255,178,62,.28)}
+
+    .heroRight{display:flex;flex-direction:column}
+    .banner{width:100%;height:210px;object-fit:cover;display:block}
+    .heroInfo{padding:14px;display:grid;gap:10px}
+    .infoRow{display:flex;justify-content:space-between;gap:10px;font-size:13px;color:var(--muted)}
+    .infoRow b{color:var(--text)}
+
+    /* Sections */
+    .section{padding:22px 0}
+    .sectionTitle{display:flex;align-items:flex-end;justify-content:space-between;gap:12px;margin-bottom:12px}
+    h2{margin:0;font-size:18px}
+    .sub{color:var(--muted);font-size:13px;line-height:1.6}
+
+    .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .grid4{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+
+    .service{
+      padding:14px;border-radius:16px;border:1px solid var(--line);
+      background:linear-gradient(180deg,rgba(15,26,51,.92),rgba(13,23,48,.88));
+    }
+    .service h3{margin:0 0 6px 0;font-size:14px}
+    .service p{margin:0;color:var(--muted);font-size:12.5px;line-height:1.55}
+
+    .brands{
+      padding:14px;border-radius:16px;border:1px solid var(--line);
+      background:rgba(255,255,255,.05);
+      display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between
+    }
+    .brandChip{
+      padding:10px 12px;border-radius:14px;border:1px solid var(--line);
+      background:rgba(0,0,0,.18);color:var(--muted);font-size:12px;font-weight:900;
+      flex:1;min-width:120px;text-align:center
+    }
+
+    .packages{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .pack{
+      padding:16px;border-radius:18px;border:1px solid var(--line);
+      background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));
+    }
+    .pack h3{margin:0 0 6px 0}
+    .price{font-size:22px;font-weight:900;margin:8px 0;color:var(--gold)}
+    .pack ul{margin:10px 0 0 18px;color:var(--muted);font-size:13px;line-height:1.6}
+    .pack .mini{color:var(--muted);font-size:12px}
+
+    .testGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    .test{
+      padding:14px;border-radius:16px;border:1px solid var(--line);
+      background:rgba(255,255,255,.05);
+      color:var(--muted);font-size:13px;line-height:1.6;
+    }
+    .test b{color:var(--text)}
+
+    /* Gallery */
+    .gallery{display:grid;grid-template-columns:1.2fr .8fr;gap:12px}
+    .gImg{width:100%;height:320px;object-fit:cover;border-radius:18px;border:1px solid var(--line)}
+    .gCol{display:grid;gap:12px}
+    .gSmall{height:154px}
+
+    /* Contact */
+    .contactGrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:stretch}
+    .contactCard{
+      padding:14px;border-radius:18px;border:1px solid var(--line);
+      background:rgba(255,255,255,.05)
+    }
+    .contactItem{
+      display:flex;justify-content:space-between;gap:10px;padding:10px 0;
+      border-bottom:1px dashed rgba(255,255,255,.15);
+      color:var(--muted);font-size:13px
+    }
+    .contactItem:last-child{border-bottom:0}
+    .map{width:100%;height:320px;border:0;border-radius:18px;border:1px solid var(--line)}
+
+    footer{padding:18px 0;border-top:1px solid var(--line);color:var(--muted);font-size:12px}
+    .footerRow{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+    @media (max-width:980px){
+      .heroGrid{grid-template-columns:1fr}
+      .heroBullets{grid-template-columns:1fr}
+      .grid3,.packages,.testGrid{grid-template-columns:1fr}
+      .grid4{grid-template-columns:repeat(2,1fr)}
+      .gallery{grid-template-columns:1fr}
+      .gImg{height:260px}
+      .gSmall{height:180px}
+      .contactGrid{grid-template-columns:1fr}
+      h1{font-size:28px}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOP BAR -->
+  <div class="topbar">
+    <div class="container">
+      <div class="nav">
+        <div class="brand">
+          <div class="logoDot" aria-hidden="true"></div>
+          <div>
+            <div class="brandTitle">RAJMUDRA COMPUTERS</div>
+            <div class="brandSub">Sales & Services • Bibvewadi, Pune</div>
+          </div>
+        </div>
+
+        <div class="navLinks">
+          <a href="#services">Services</a>
+          <a href="#why">Why Us</a>
+          <a href="#packages">Packages</a>
+          <a href="#gallery">Gallery</a>
+          <a href="#contact">Contact</a>
+        </div>
+
+        <div class="btnRow">
+          <a class="btn primary" href="tel:+919881227788">📞 Call</a>
+          <a class="btn whatsapp" target="_blank" rel="noreferrer"
+             href="https://wa.me/919422434140?text=Hello%20Rajmudra%20Computers%2C%20I%20need%20service%20support.%20Please%20call%20me.">
+             💬 WhatsApp
+          </a>
+          <a class="btn billing" target="_blank" rel="noreferrer" href="https://rajmudra-billing.vercel.app">
+            🧾 Billing Panel
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="container">
+      <div class="heroGrid">
+        <div class="card heroLeft">
+          <span class="kicker">Authorised Dealer • Trusted Support</span>
+          <h1>
+            Laptop • Desktop • Printer • CCTV<br/>
+            <span class="accent">Sales & Services</span>
+          </h1>
+          <div class="heroText">
+            Bibvewadi, Pune मध्ये <b>fast & reliable</b> computer services.
+            Genuine parts, transparent pricing आणि professional support.
+          </div>
+
+          <div class="heroBullets">
+            <div class="pill">✅ Quick Diagnosis</div>
+            <div class="pill">✅ Genuine Parts</div>
+            <div class="pill">✅ Support & Guidance</div>
+          </div>
+
+          <div class="tagRow">
+            <span class="tag">Laptop Repair</span>
+            <span class="tag">Printer Service</span>
+            <span class="tag red">CCTV</span>
+            <span class="tag gold">Networking</span>
+          </div>
+
+          <div class="btnRow" style="justify-content:flex-start;margin-top:14px">
+            <a class="btn primary" href="tel:+919881227788">📞 Call Now</a>
+            <a class="btn whatsapp" target="_blank" rel="noreferrer"
+               href="https://wa.me/919422434140?text=Hello%20Rajmudra%20Computers%2C%20I%20need%20service%20support.%20Please%20call%20me.">
+              💬 WhatsApp Now
+            </a>
+          </div>
+
+          <div class="heroText" style="margin-top:10px">
+            Working Hours: <b>9:30 AM – 8:30 PM</b>
+          </div>
+        </div>
+
+        <div class="card heroRight">
+          <img class="banner" src="banner-blue.png" alt="Rajmudra Computers Banner" onerror="this.style.display='none'">
+          <div class="heroInfo">
+            <div class="infoRow"><span>Address</span><b>Shop No. 5, Nikita Residency, Mahesh Society, Bibvewadi, Pune</b></div>
+            <div class="infoRow"><span>WhatsApp</span><b>+91 94224 34140</b></div>
+            <div class="infoRow"><span>Call</span><b>+91 98812 27788</b></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICES -->
+  <div class="section" id="services">
+    <div class="container">
+      <div class="sectionTitle">
+        <div>
+          <h2>Services</h2>
+          <div class="sub">फक्त core computer services (Cyber cafe mention नाही).</div>
+        </div>
+      </div>
+
+      <div class="grid3">
+        <div class="service">
+          <h3>💻 Laptop / Desktop Repair</h3>
+          <p>Hardware diagnostics, OS issues, performance boost, cleaning & servicing.</p>
+        </div>
+        <div class="service">
+          <h3>🖨 Printer Sales & Service</h3>
+          <p>Printer setup, repair, cartridges/toner support, printing issues fix.</p>
+        </div>
+        <div class="service">
+          <h3>📷 CCTV Installation</h3>
+          <p>CCTV setup, DVR/NVR configuration, remote viewing, maintenance support.</p>
+        </div>
+
+        <div class="service">
+          <h3>🌐 Networking / Wi-Fi Setup</h3>
+          <p>Router setup, LAN wiring, Wi-Fi optimization, office/home networking.</p>
+        </div>
+        <div class="service">
+          <h3>🧩 Software Solutions</h3>
+          <p>System installation, upgrades, antivirus, business software assistance.</p>
+        </div>
+        <div class="service">
+          <h3>🧰 Accessories & Upgrades</h3>
+          <p>SSD/RAM upgrades, adapters, keyboards/mouse, essential accessories.</p>
+        </div>
+      </div>
+
+      <div style="height:12px"></div>
+
+      <div class="brands">
+        <div style="min-width:220px">
+          <div style="font-weight:900">Supported Brands</div>
+          <div class="sub">Trusted brands support & service.</div>
+        </div>
+        <div class="brandChip">Lenovo</div>
+        <div class="brandChip">HP</div>
+        <div class="brandChip">Dell</div>
+        <div class="brandChip">Asus</div>
+        <div class="brandChip">Acer</div>
+        <div class="brandChip">MSI</div>
+        <div class="brandChip">Intel</div>
+        <div class="brandChip">Microsoft</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHY US -->
+  <div class="section" id="why">
+    <div class="container">
+      <div class="sectionTitle">
+        <div>
+          <h2>Why Choose Rajmudra?</h2>
+          <div class="sub">Customer trust + quick support = premium experience.</div>
+        </div>
+      </div>
+
+      <div class="grid4">
+        <div class="service">
+          <h3>⚡ Fast Service</h3>
+          <p>Quick response आणि practical solution.</p>
+        </div>
+        <div class="service">
+          <h3>✅ Transparent Guidance</h3>
+          <p>ज योग्य तेच advice (no confusion).</p>
+        </div>
+        <div class="service">
+          <h3>🛡 After-Service Support</h3>
+          <p>Follow-up आणि support focus.</p>
+        </div>
+        <div class="service">
+          <h3>💯 Trusted Work</h3>
+          <p>Local trust + repeat customers.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PACKAGES -->
+  <div class="section" id="packages">
+    <div class="container">
+      <div class="sectionTitle">
+        <div>
+          <h2>Packages / AMC (Optional)</h2>
+          <div class="sub">Pricing नंतर update करू. आत्ता “Custom” ठेवलेलं आहे.</div>
+        </div>
+      </div>
+
+      <div class="packages">
+        <div class="pack">
+          <h3>Basic Support</h3>
+          <div class="mini">Home/Single device</div>
+          <div class="price">Custom</div>
+          <ul>
+            <li>Basic troubleshooting</li>
+            <li>Software assistance</li>
+            <li>Periodic health check</li>
+          </ul>
+        </div>
+        <div class="pack" style="border-color:rgba(255,178,62,.35)">
+          <h3>Standard Care</h3>
+          <div class="mini">Small office</div>
+          <div class="price">Custom</div>
+          <ul>
+            <li>Priority support</li>
+            <li>Networking help</li>
+            <li>Performance optimization</li>
+          </ul>
+        </div>
+        <div class="pack" style="border-color:rgba(30,77,255,.35)">
+          <h3>Premium AMC</h3>
+          <div class="mini">Business/Multiple systems</div>
+          <div class="price">Custom</div>
+          <ul>
+            <li>Planned maintenance</li>
+            <li>Fast issue resolution</li>
+            <li>Regular backup guidance</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TESTIMONIALS -->
+  <div class="section">
+    <div class="container">
+      <div class="sectionTitle">
+        <div>
+          <h2>Customer Feedback</h2>
+          <div class="sub">Reviews नंतर real customers चे टाकू शकतो.</div>
+        </div>
+      </div>
+
+      <div class="testGrid">
+        <div class="test"><b>“Quick service आणि स्पष्ट guidance.”</b><br/>Laptop issue पटकन solve झाला.</div>
+        <div class="test"><b>“Printer setup perfect!”</b><br/>Smooth printing आणि support चांगला.</div>
+        <div class="test"><b>“Trusted shop in Bibvewadi.”</b><br/>Genuine parts आणि professional काम.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GALLERY -->
+  <div class="section" id="gallery">
+    <div class="container">
+      <div class="sectionTitle">
+        <div>
+          <h2>Gallery</h2>
+          <div class="sub">Shop photo + branding cards. (Website content मध्ये “cyber cafe” नाही.)</div>
+        </div>
+      </div>
+
+      <div class="gallery">
+        <img class="gImg" src="shop.jpg" alt="Rajmudra Shop" onerror="this.style.display='none'">
+        <div class="gCol">
+          <img class="gImg gSmall" src="banner-blue.png" alt="Banner Blue" onerror="this.style.display='none'">
+          <img class="gImg gSmall" src="banner-red.png" alt="Banner Red" onerror="this.style.display='none'">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <div class="section" id="contact">
+    <div class="container">
+      <div class="sectionTitle">
+        <div>
+          <h2>Contact</h2>
+          <div class="sub">Call/WhatsApp for service support.</div>
+        </div>
+      </div>
+
+      <div class="contactGrid">
+        <div class="contactCard">
+          <div class="contactItem"><span>Address</span><b style="color:var(--text)">Shop No. 5, Nikita Residency, Mahesh Society, Bibvewadi, Pune</b></div>
+          <div class="contactItem"><span>Working Hours</span><b style="color:var(--text)">9:30 AM – 8:30 PM</b></div>
+          <div class="contactItem"><span>WhatsApp</span><b style="color:var(--text)">+91 94224 34140</b></div>
+          <div class="contactItem"><span>Call</span><b style="color:var(--text)">+91 98812 27788</b></div>
+
+          <div class="btnRow" style="justify-content:flex-start;margin-top:12px">
+            <a class="btn primary" href="tel:+919881227788">📞 Call Now</a>
+            <a class="btn whatsapp" target="_blank" rel="noreferrer"
+               href="https://wa.me/919422434140?text=Hello%20Rajmudra%20Computers%2C%20I%20need%20service%20support.%20Please%20call%20me.">
+              💬 WhatsApp
+            </a>
+            <a class="btn billing" target="_blank" rel="noreferrer" href="https://rajmudra-billing.vercel.app">
+              🧾 Billing Panel
+            </a>
+          </div>
+        </div>
+
+        <!-- ✅ Google Map: जर तुला exact map link/coordinates दिले तर मी exact embed देतो.
+             आत्ता generic embed (Bibvewadi, Pune) ठेवला आहे -->
+        <iframe class="map"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=Bibvewadi%20Pune&output=embed">
+        </iframe>
+      </div>
+    </div>
+  </div>
+
+  <footer>
+    <div class="container">
+      <div class="footerRow">
+        <div>© <span id="yr"></span> <b>Rajmudra Computers</b> — Sales & Services</div>
+        <div class="smallNote">Made with ❤️ for Rajmudra • WhatsApp: 94224 34140</div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById("yr").textContent = new Date().getFullYear();
+  </script>
+
+</body>
+</html>
